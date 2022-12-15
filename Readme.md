@@ -30,3 +30,8 @@ _Like Credly_ - but not about the certification itself as rather a **platform to
 - Help Users to plan a certification based on average time needed / calendar integration?
 - Host Certifications (pdfs etc.) for User
 - Allow companies to create certifications and have other users validate them ?
+
+## How To
+
+- Install Go
+- Run "go run ."
