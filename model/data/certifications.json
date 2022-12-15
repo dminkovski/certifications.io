@@ -1,0 +1,32 @@
+[
+  {
+    "name": "CKA: Certified Kubernetes Administrator",
+    "shortName": "CKA",
+    "id": 1,
+    "link": "https://www.credly.com/org/the-linux-foundation/badge/cka-certified-kubernetes-administrator",
+    "image": "https://images.credly.com/size/680x680/images/8b8ed108-e77d-4396-ac59-2504583b9d54/cka_from_cncfsite__281_29.png",
+    "courses": [
+      "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/"
+    ],
+    "skills": [
+      "API objects",
+      "Cloud",
+      "Custom Resource Definitions",
+      "Helm",
+      "Ingress",
+      "Kubernetes",
+      "Logging and Troubleshooting",
+      "Open Source Software",
+      "Orchestration",
+      "Scheduling",
+      "Security Policies",
+      "Services",
+      "Site Reliability Engineer",
+      "System Administrator",
+      "Volumes"
+    ],
+    "notes": "Score a passing grade on an online, proctored, performance based exam. The exam consists of a set of performance-based items (problems) to be solved in a command line, running Kubernetes.",
+    "updated": "2006-01-02T15:04:05",
+    "created": "2006-01-02T15:04:05"
+  }
+]
