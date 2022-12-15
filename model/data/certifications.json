@@ -8,6 +8,9 @@
     "courses": [
       "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/"
     ],
+    "priceInDollars": 395,
+    "minDurationInMonths": 3,
+    "maxDurationInMonths": 6,
     "skills": [
       "API objects",
       "Cloud",
