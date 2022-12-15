@@ -1,8 +1,8 @@
 package main
 
 import (
-	_ "github.com/dminkovski/goblog/model"
-	"github.com/dminkovski/goblog/server"
+	_ "github.com/dminkovski/certifications.io/model"
+	"github.com/dminkovski/certifications.io/server"
 )
 
 func main() {

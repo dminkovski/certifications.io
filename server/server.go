@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"github.com/dminkovski/goblog/model"
+	"github.com/dminkovski/certifications.io/model"
 	"regexp"
 	"os"
 )
