@@ -15,9 +15,9 @@ type Certification struct {
 	Created string	`json: "created"`
 	Skills []string	`json: "skills"`
 	Notes string	`json: "notes"`
-	Price int 		`json: "priceInDollars`
-	MinMonths int 	`json: "minDurationInMonths"`
-	MaxMonths int 	`json: "maxDurationInMonths"`
+	Price int 		`json: "price`
+	MinMonths int 	`json: "minMonths"`
+	MaxMonths int 	`json: "maxMonths"`
 }
 
 

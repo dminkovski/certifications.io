@@ -15,20 +15,10 @@
     <div class="mui-container-fluid">
       <div class="mui-row">
         <div class="mui-panel">
-          <a class="mui-btn" href="/certifications/create">Create</a>
-          {{range .Certifications}}
-          <div class="mui-col-md-2 mui--text-center mui--z2">
-            <h5>{{.Name}}</h5>
-            <img style="width: 250px" class="img" src="{{.Image}}" />
-            <a class="mui-btn" href="{{.Link}}" target="_blank">Visit</a>
-            <div class="mui-divider"></div>
-            <ul>
-              {{ range .Skills}}
-              <li>{{.}}</li>
-              {{ end }}
-            </ul>
-          </div>
-          {{end}}
+          <form hx-post="/api/certifications">
+            <input type="text" name="name" />
+            <a>Click me</a>
+          </form>
         </div>
       </div>
     </div>
