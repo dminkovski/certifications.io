@@ -6,7 +6,16 @@
     "link": "https://www.credly.com/org/the-linux-foundation/badge/cka-certified-kubernetes-administrator",
     "image": "https://images.credly.com/size/680x680/images/8b8ed108-e77d-4396-ac59-2504583b9d54/cka_from_cncfsite__281_29.png",
     "courses": [
-      "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/"
+      {
+        "id": 1,
+        "provider": {
+          "id": 1,
+          "name": "Linux Foundation",
+          "link": "https://linuxfoundation.org"
+        },
+        "name": "Certified Kubernetes Administrator CKA",
+        "link": "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/"
+      }
     ],
     "price": 395,
     "minMonths": 3,

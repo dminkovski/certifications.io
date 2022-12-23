@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	server := server.Server{":8080"}
+	server := server.Server{Port: ":8081"}
 	server.Start()
 }
