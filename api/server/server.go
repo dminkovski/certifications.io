@@ -23,7 +23,7 @@ func Images(w http.ResponseWriter, req *http.Request) {
 		log.Fatal(err)
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080,https://certs-static-webapp.azurewebsites.net")
 	w.Header().Set("Content-Type", fmt.Sprintf("image/%s", ty))
 	w.Write(file)
 }

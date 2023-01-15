@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/dminkovski/certifications.io/model"
+	"github.com/dminkovski/certifications.io/api/model"
 )
 
 var tpl *template.Template
@@ -23,7 +23,7 @@ func GetCertifications(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)
 		}
 		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.WriteHeader(http.StatusOK)
 		w.Write(response)
 	} else {
@@ -78,6 +78,7 @@ func GetCertificationById(w http.ResponseWriter, req *http.Request) {
 				http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)
 			}
 			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set("Access-Control-Allow-Origin", "*")
 			w.WriteHeader(http.StatusOK)
 			w.Write(response)
 		}
@@ -107,6 +108,7 @@ func PostCreateCertification(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.WriteHeader(http.StatusOK)
 		w.Write(response)
 	}
