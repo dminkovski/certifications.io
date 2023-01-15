@@ -34,4 +34,8 @@ _Like Credly_ - but not about the certification itself as rather a **platform to
 ## How To
 
 - Install Go
-- Run "go run ."
+- cd to ./api
+- Run "go run ." then the backend API Server should be running on Port 8080
+- cd to ./frontend
+- Run "npm start" then the client should be running on Port 3000
+
