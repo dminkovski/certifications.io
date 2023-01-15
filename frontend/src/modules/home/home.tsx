@@ -26,7 +26,6 @@ import { useNavigate } from "react-router-dom";
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 function Home() {
-    let navigate = useNavigate();
 
   const getCertifications = () => {
     const { data, error, isLoading } = useSWR(
@@ -44,31 +43,11 @@ function Home() {
   const { certifications, isLoading, isError } = getCertifications();
 
   return (
-    <div className="App">
-      <AppShell
-        padding="sm"
-        navbar={
-          <Navbar p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-            <NavLink
-              onClick={()=>{
-                navigate(`/certifications/create`)
-              }}
-              label="Create Certification"
-              icon={<IconCheck size={16} stroke={1.5} />}
-            />
-          </Navbar>
-        }
-        header={
-          <Header height={60} p="xs">
-            <Text>Header</Text>
-          </Header>
-        }
-      >
-        <Container size="xs" px="xs">
+   <div id="certifications">
+    <h1>Certifications</h1>
           <Certifications certifications={certifications}/>
-        </Container>
-      </AppShell>
-    </div>
+          </div>
+   
   );
 }
 export default Home;
