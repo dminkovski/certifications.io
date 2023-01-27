@@ -1,13 +1,22 @@
 package model
 
 import (
+	"encoding/json"
 	"time"
 )
 
 type Provider struct {
 	Id   int    `json: "id"`
 	Name string `json: "name"`
-	Link string `json: "name"`
+	Link string `json: "link"`
+}
+
+func (provider Provider) MarshalJSON() ([]byte, error) {
+	return json.Marshal(map[string]interface{}{
+		"id":   provider.Id,
+		"name": provider.Name,
+		"link": provider.Link,
+	})
 }
 
 type Course struct {
@@ -15,6 +24,15 @@ type Course struct {
 	Link     string   `json: "link"`
 	Provider Provider `json: "provider`
 	Name     string   `json: "name"`
+}
+
+func (course Course) MarshalJSON() ([]byte, error) {
+	return json.Marshal(map[string]interface{}{
+		"id":       course.Id,
+		"link":     course.Link,
+		"provider": course.Provider,
+		"name":     course.Name,
+	})
 }
 
 type Certification struct {
@@ -31,6 +49,21 @@ type Certification struct {
 	Price     int      `json: "price`
 	MinMonths int      `json: "minMonths"`
 	MaxMonths int      `json: "maxMonths"`
+}
+
+func (cert Certification) MarshalJSON() ([]byte, error) {
+	return json.Marshal(map[string]interface{}{
+		"id":        cert.Id,
+		"link":      cert.Link,
+		"image":     cert.Image,
+		"courses":   cert.Courses,
+		"name":      cert.Name,
+		"shortName": cert.ShortName,
+		"skills":    cert.Skills,
+		"minMonths": cert.MinMonths,
+		"maxMonths": cert.MaxMonths,
+		"price":     cert.Price,
+	})
 }
 
 func (cert *Certification) Create() {

@@ -32,16 +32,16 @@ function Certifications({certifications}:ICertificationsProps) {
                 <Image
                   height={160}
                   radius="md"
-                  src={`${serverURL}/${cert.Image}`}
-                  alt={cert.Name}
+                  src={`${serverURL}/${cert.image}`}
+                  alt={cert.name}
                 />
               </Card.Section>
               <Group position="center" mt="md" mb="xs">
-                <Title order={4}>{cert.Name}</Title>
+                <Title order={4}>{cert.name}</Title>
                 <Badge color="blue" variant="dark">
                   223 Ratings
                 </Badge>
-                <Text>{cert.Notes}</Text>
+                <Text>{cert.notes}</Text>
               </Group>
               <Table striped mt="md" mb="xs">
                 <thead>
@@ -52,15 +52,15 @@ function Certifications({certifications}:ICertificationsProps) {
                     </tr>    
                 </thead>
                 <tbody>
-                  {cert.Courses?.map((c: ICourse, index: number) => (
+                  {cert.courses?.map((c: ICourse, index: number) => (
                     <tr key={`course-${index}`}>
                       <td>
                         <Text
                           component="a"
                           target="_blank"
-                          href={c.Provider?.Link}
+                          href={c.provider?.link}
                         >
-                          {c.Provider?.Name}
+                          {c.provider?.name}
                         </Text>
                       </td>
                       <td>
@@ -75,7 +75,7 @@ function Certifications({certifications}:ICertificationsProps) {
                           leftIcon={<IconExternalLink size={14} />}
                           radius="md"
                         >
-                          {c.Name}
+                          {c.name}
                         </Button>
                       </td>
                       <td></td>
@@ -83,7 +83,7 @@ function Certifications({certifications}:ICertificationsProps) {
                   ))}
                 </tbody>
               </Table>
-              {cert.Skills?.map((s: string, index: number) => (
+              {cert.skills?.map((s: string, index: number) => (
                 <Badge
                   key={`skill-${index}`}
                   variant="gradient"

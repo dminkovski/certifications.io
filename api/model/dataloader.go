@@ -2,18 +2,17 @@ package model
 
 import (
 	"encoding/json"
-	"os"
-	"log"
-	"net/http"
+	"errors"
 	"fmt"
 	"io"
-	"errors"
+	"log"
+	"net/http"
+	"os"
 )
 
-
-func LoadCertifications() []Certification{
-	certsPath :=  "./model/data/certifications.json"
-	certifications := make([]Certification,1)
+func LoadCertifications() []Certification {
+	certsPath := "./model/data/certifications.json"
+	certifications := make([]Certification, 1)
 	file, err := os.ReadFile(certsPath)
 	if err != nil {
 		log.Fatal(err)
@@ -22,7 +21,7 @@ func LoadCertifications() []Certification{
 	if err != nil {
 		log.Fatal(err)
 	}
-	for index, c :=  range certifications {
+	for index, c := range certifications {
 		certifications[index].SetImage(GetImage(c.ShortName, c.Image))
 	}
 	return certifications
@@ -30,7 +29,7 @@ func LoadCertifications() []Certification{
 
 func GetImage(shortName string, url string) string {
 	outputPath := fmt.Sprintf("./assets/%s.png", shortName)
-	imagePath := fmt.Sprintf("/assets/img/%s.png",shortName)
+	imagePath := fmt.Sprintf("/assets/img/%s.png", shortName)
 	_, err := os.Open(outputPath)
 	if errors.Is(err, os.ErrNotExist) {
 		resp, err := http.Get(url)

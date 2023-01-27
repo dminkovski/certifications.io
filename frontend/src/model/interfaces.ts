@@ -1,21 +1,21 @@
 export interface IProvider {
-    Name: string;
-    Link: string;
-    Id: number;
+    name: string;
+    link: string;
+    id: number;
 }
 
 export interface ICourse {
-    Name: string;
-    Provider: IProvider;
-    Link: string;
+    name: string;
+    provider: IProvider;
+    link: string;
 }
 
 export interface ICertification {
-    Id:number;
-    Name: string;
-    Notes: string;
-    Image: string;
-    Skills: string[];
-    Link: string;
-    Courses:  ICourse[];
+    id:number;
+    name: string;
+    notes: string;
+    image: string;
+    skills: string[];
+    link: string;
+    courses:  ICourse[];
 }

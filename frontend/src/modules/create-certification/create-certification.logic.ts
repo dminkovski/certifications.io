@@ -1,3 +1,5 @@
+import { ICertification } from "src/model/interfaces";
+
 export interface IUseCreateCertificationLogic{
     validate:(values:any)=>any;
     initialValues: any;
@@ -5,7 +7,11 @@ export interface IUseCreateCertificationLogic{
 }   
 
 function UseCreateCertificationLogic(props:any):IUseCreateCertificationLogic{
-    const initialValues = { name: '' }
+    const initialValues:ICertification = { id: -1 ,name: '', notes: '',
+    image: '',
+    skills: [],
+    link: '',
+    courses:  [] }
     
 
     function validate(values:any):any{
