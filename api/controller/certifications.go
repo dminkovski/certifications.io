@@ -11,25 +11,11 @@ import (
 	"strconv"
 
 	"github.com/dminkovski/certifications.io/api/model"
+	"github.com/dminkovski/certifications.io/api/utils"
 )
 
 var tpl *template.Template
-
-func GetCertifications(w http.ResponseWriter, req *http.Request) {
-	if req.Method == "GET" {
-		certifications := model.LoadCertifications()
-		response, err := json.Marshal(certifications)
-		if err != nil {
-			http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)
-		}
-		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.WriteHeader(http.StatusOK)
-		w.Write(response)
-	} else {
-		http.Error(w, "Only GET allowed", http.StatusBadRequest)
-	}
-}
+var useDB bool
 
 func Index(w http.ResponseWriter, req *http.Request) {
 	certifications := model.LoadCertifications()
@@ -43,16 +29,28 @@ func Index(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func GetCreateCertification(w http.ResponseWriter, req *http.Request) {
+// Gets Certifications from DB or local JSON
+func GetCertifications(w http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
-		err := tpl.ExecuteTemplate(w, "create-certification.html", nil)
-		if err != nil {
-			log.Panic(err)
+		var certifications []model.Certification
+		if useDB {
+			certifications = make([]model.Certification, 1)
+		} else {
+			certifications = model.LoadCertifications()
 		}
+		response, err := json.Marshal(certifications)
+		if err != nil {
+			http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)
+		}
+		utils.PrepareResponse(w, response)
+	} else {
+		http.Error(w, "Only GET allowed", http.StatusBadRequest)
 	}
 }
-
+// Handle Certification Route GET and POST
 func GetAndPostCertificationById(w http.ResponseWriter, req *http.Request) {
+	utils.PrepareResponse(w, nil)
+
 	if req.Method == "GET" {
 		GetCertificationById(w, req)
 	} else if req.Method == "POST" {
@@ -61,7 +59,6 @@ func GetAndPostCertificationById(w http.ResponseWriter, req *http.Request) {
 }
 
 func GetCertificationById(w http.ResponseWriter, req *http.Request) {
-
 	re := regexp.MustCompile(`\d+$`)
 	url := req.URL.String()
 	if re.Match([]byte(url)) {
@@ -77,10 +74,7 @@ func GetCertificationById(w http.ResponseWriter, req *http.Request) {
 			if err != nil {
 				http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)
 			}
-			w.Header().Set("Content-Type", "application/json")
-			w.Header().Set("Access-Control-Allow-Origin", "*")
-			w.WriteHeader(http.StatusOK)
-			w.Write(response)
+			utils.PrepareResponse(w, response)
 		}
 	} else {
 		http.Error(w, "Id not provided", http.StatusBadRequest)
@@ -95,6 +89,7 @@ func PostCreateCertification(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		var mr *MalformedRequest
 		if errors.As(err, &mr) {
+			fmt.Println(mr.Error())
 			http.Error(w, mr.Error(), mr.Status())
 		} else {
 			log.Panic(err.Error())
@@ -107,18 +102,20 @@ func PostCreateCertification(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)
 			return
 		}
-		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.WriteHeader(http.StatusOK)
-		w.Write(response)
+		err = model.SaveCertification( c)
+		if err != nil {
+			http.Error(w, "Saving to local JSON file was not possible.", http.StatusInternalServerError)
+		}
+		utils.PrepareResponse(w, response)
 	}
 
 }
 
 func init() {
+	useDB = false
+
 	tpl = template.Must(template.ParseGlob("templates/**.html"))
 	http.HandleFunc("/", Index)
-	http.HandleFunc("/certifications/create", GetCreateCertification)
 	http.HandleFunc("/api/certification", GetAndPostCertificationById)
 	http.HandleFunc("/api/certifications", GetCertifications)
 }

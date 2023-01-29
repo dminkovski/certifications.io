@@ -5,35 +5,6 @@ import (
 	"time"
 )
 
-type Provider struct {
-	Id   int    `json: "id"`
-	Name string `json: "name"`
-	Link string `json: "link"`
-}
-
-func (provider Provider) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"id":   provider.Id,
-		"name": provider.Name,
-		"link": provider.Link,
-	})
-}
-
-type Course struct {
-	Id       int      `json: "id"`
-	Link     string   `json: "link"`
-	Provider Provider `json: "provider`
-	Name     string   `json: "name"`
-}
-
-func (course Course) MarshalJSON() ([]byte, error) {
-	return json.Marshal(map[string]interface{}{
-		"id":       course.Id,
-		"link":     course.Link,
-		"provider": course.Provider,
-		"name":     course.Name,
-	})
-}
 
 type Certification struct {
 	Id        int      `json: "id"`

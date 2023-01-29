@@ -12,6 +12,7 @@ type Server struct {
 	Port string
 }
 
+// Handle Static Image Assets
 func Images(w http.ResponseWriter, req *http.Request) {
 	re := regexp.MustCompile(`[a-zA-Z]+\.(png|jpg)\b`)
 	tr := regexp.MustCompile(`(png|jpg)\b`)
@@ -23,7 +24,7 @@ func Images(w http.ResponseWriter, req *http.Request) {
 		log.Fatal(err)
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080,https://certs-static-webapp.azurewebsites.net")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", fmt.Sprintf("image/%s", ty))
 	w.Write(file)
 }

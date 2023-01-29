@@ -43,11 +43,24 @@ function CreateCertification(props?:any) {
        }) => (
          <form onSubmit={handleSubmit}>
            <>
-           <TextInput              onChange={handleChange}
+           <TextInput
+             onChange={handleChange}
              onBlur={handleBlur}
              value={values.name}
              label="Certification name" name="name" description="Official name of the certification" />
-           {errors.name && touched.name && errors.name}
+            {errors.name && touched.name && errors.name}
+           <TextInput
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.link}
+             label="Certification link" name="link" description="Official link of the certification on credly" />
+            {errors.link && touched.link && errors.link}
+           <TextInput
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.image}
+             label="Certification image" name="image" description="Image URL on credly" />
+            {errors.image && touched.image && errors.image}
            <button type="submit" disabled={isSubmitting}>
              Submit
            </button>

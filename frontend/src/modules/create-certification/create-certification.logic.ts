@@ -1,3 +1,5 @@
+import axios from "axios";
+import { serverURL } from "src/config/constants";
 import { ICertification } from "src/model/interfaces";
 
 export interface IUseCreateCertificationLogic{
@@ -11,22 +13,32 @@ function UseCreateCertificationLogic(props:any):IUseCreateCertificationLogic{
     image: '',
     skills: [],
     link: '',
+    minMonths:0,
+    maxMonths:1,
+    shortName: '',
+    updated:'',
+    created:'',
+    price: 0,
     courses:  [] }
+    const url = `${serverURL}/api/certification`;
     
-
     function validate(values:any):any{
         const errors:any = {};
-        if (!values.email) {
+        if (!values.name) {
             errors.name = 'Required';
         } 
         return errors;
     }
 
-    function onSubmit(values:any, { setSubmitting }:any):void{
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+    async function onSubmit(values:any, { setSubmitting }:any):Promise<void> {
+
+        setSubmitting(true)
+        const data = JSON.stringify(values)
+        const response = await axios.post(url, data, {
+           headers:{ "Content-Type":"application/json"},
+        });
+        console.log(response)
+        setSubmitting(false)
     }
 
 

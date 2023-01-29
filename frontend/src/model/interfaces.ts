@@ -13,9 +13,15 @@ export interface ICourse {
 export interface ICertification {
     id:number;
     name: string;
-    notes: string;
     image: string;
     skills: string[];
     link: string;
     courses:  ICourse[];
+    minMonths: number;
+    maxMonths: number;
+    shortName: string;
+    notes: string;
+    updated: string | Date;
+    created: string | Date;
+    price: number;
 }
