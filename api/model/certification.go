@@ -5,7 +5,6 @@ import (
 	"time"
 )
 
-
 type Certification struct {
 	Id        int      `json: "id"`
 	Link      string   `json: "link"`

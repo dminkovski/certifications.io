@@ -10,15 +10,15 @@ import (
 	"regexp"
 	"strconv"
 
+	"github.com/dminkovski/certifications.io/api/database"
 	"github.com/dminkovski/certifications.io/api/model"
 	"github.com/dminkovski/certifications.io/api/utils"
 )
 
 var tpl *template.Template
-var useDB bool
 
 func Index(w http.ResponseWriter, req *http.Request) {
-	certifications := model.LoadCertifications()
+	certifications := make([]model.Certification, 0)
 	err := tpl.ExecuteTemplate(w, "certifications.html", struct {
 		Certifications []model.Certification
 	}{
@@ -33,11 +33,7 @@ func Index(w http.ResponseWriter, req *http.Request) {
 func GetCertifications(w http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
 		var certifications []model.Certification
-		if useDB {
-			certifications = make([]model.Certification, 1)
-		} else {
-			certifications = model.LoadCertifications()
-		}
+		certifications = make([]model.Certification, 1)
 		response, err := json.Marshal(certifications)
 		if err != nil {
 			http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)
@@ -47,6 +43,7 @@ func GetCertifications(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, "Only GET allowed", http.StatusBadRequest)
 	}
 }
+
 // Handle Certification Route GET and POST
 func GetAndPostCertificationById(w http.ResponseWriter, req *http.Request) {
 	utils.PrepareResponse(w, nil)
@@ -102,7 +99,7 @@ func PostCreateCertification(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)
 			return
 		}
-		err = model.SaveCertification( c)
+		err = database.SaveCertification(c)
 		if err != nil {
 			http.Error(w, "Saving to local JSON file was not possible.", http.StatusInternalServerError)
 		}
@@ -112,8 +109,6 @@ func PostCreateCertification(w http.ResponseWriter, req *http.Request) {
 }
 
 func init() {
-	useDB = false
-
 	tpl = template.Must(template.ParseGlob("templates/**.html"))
 	http.HandleFunc("/", Index)
 	http.HandleFunc("/api/certification", GetAndPostCertificationById)
