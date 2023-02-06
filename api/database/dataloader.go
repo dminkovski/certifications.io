@@ -61,25 +61,8 @@ func LoadCertifications() int {
 }
 
 func SaveCertification(cert model.Certification) error {
-	certsPath := "./database/data/created.json"
-	certifications := make([]model.Certification, 1)
-	file, err := os.ReadFile(certsPath)
-	if err != nil {
-		log.Fatal(err)
-		return err
-	}
-	err = json.Unmarshal([]byte(file), &certifications)
-	if err != nil {
-		log.Fatal(err)
-		return err
-	}
-	certifications = append(certifications, cert)
-	results, err := json.Marshal(certifications)
-	err = os.WriteFile(certsPath, results, 0666)
-	if err != nil {
-		log.Fatal(err)
-		return err
-	}
+	certifications := []model.Certification{cert}
+	InsertCertifications(certifications)
 	return nil
 }
 

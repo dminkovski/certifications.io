@@ -2,7 +2,10 @@ module github.com/dminkovski/certifications.io/api
 
 go 1.19
 
-require go.mongodb.org/mongo-driver v1.11.1
+require (
+	go.mongodb.org/mongo-driver v1.11.1
+	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2
+)
 
 require (
 	github.com/golang/snappy v0.0.1 // indirect
