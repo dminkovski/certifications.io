@@ -32,8 +32,7 @@ func Index(w http.ResponseWriter, req *http.Request) {
 // Gets Certifications from DB or local JSON
 func GetCertifications(w http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
-		var certifications []model.Certification
-		certifications = make([]model.Certification, 1)
+		certifications := database.GetCertifications()
 		response, err := json.Marshal(certifications)
 		if err != nil {
 			http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)

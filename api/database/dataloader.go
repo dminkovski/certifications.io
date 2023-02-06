@@ -1,7 +1,6 @@
 package database
 
 import (
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -33,7 +32,6 @@ func LoadCertifications() int {
 		log.Fatal(err)
 	}
 
-	docs := make([]interface{}, 0)
 	ch := make(chan ImgLoader)
 	var wg sync.WaitGroup
 	for index, c := range certifications {
@@ -55,11 +53,11 @@ func LoadCertifications() int {
 	}()
 	for result := range ch {
 		certifications[result.index].SetImage(result.url)
-		docs = append(docs, interface{}(
-			certifications[result.index],
-		))
+		
 	}
-	return LoadDatabaseWithJSON(docs)
+	fmt.Println("Connecting to Database and saving Certifications")
+	count := InsertCertifications(certifications)
+	return count
 }
 
 func SaveCertification(cert model.Certification) error {
@@ -111,22 +109,4 @@ func GetImage(shortName string, url string) string {
 		fmt.Println("Image is already in assets: ",shortName)
 	}
 	return imagePath
-}
-
-func LoadDatabaseWithJSON(data []interface{}) int {
-	fmt.Println("Connecting to Database and saving Certifications")
-	client := Connect()
-	col := client.Database("db").Collection("Certifications")
-	result, err := col.InsertMany(context.TODO(), data)
-	if err != nil {
-		log.Panic(err)
-	}
-	for _, id := range result.InsertedIDs {
-		fmt.Printf("Inserted document with _id: %v\n", id)
-	}
-	err = Disconnect(client)
-	if err != nil {
-		log.Panic(err)
-	}
-	return len(result.InsertedIDs)
 }
