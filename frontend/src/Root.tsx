@@ -1,7 +1,7 @@
 
 import React from 'react';
 import "./App.css";
-import { IconCheck, IconExternalLink, IconStar } from "@tabler/icons";
+import { IconCheck, IconExternalLink, IconHome, IconStar } from "@tabler/icons";
 
 import {
   AppShell,
@@ -9,7 +9,7 @@ import {
   Container,
   Header,
   NavLink,
-  Text,
+  Text
 } from "@mantine/core";
 import {
   createBrowserRouter,
@@ -31,13 +31,22 @@ function Root(){
           padding="sm"
           navbar={
             <Navbar p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-              <NavLink
-                onClick={()=>{
-                  navigate(`/certifications/create`)
+              <Navbar.Section>
+                <NavLink onClick={()=>{
+                  navigate(`/`)
                 }}
-                label="Create Certification"
-                icon={<IconCheck size={16} stroke={1.5} />}
-              />
+                label="Dashboard"
+                icon={<IconHome size={16} stroke={1.5} />}
+                />
+                <NavLink
+                  onClick={()=>{
+                    navigate(`/certifications/create`)
+                  }}
+                  label="Create Certification"
+                  icon={<IconCheck size={16} stroke={1.5} />}
+                />
+              </Navbar.Section>
+             
             </Navbar>
           }
           header={

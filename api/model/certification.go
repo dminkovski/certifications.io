@@ -2,10 +2,14 @@ package model
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Certification struct {
+	_id		  primitive.ObjectID `bson:"_id"`
 	Id        int      `json: "id"`
 	Link      string   `json: "link"`
 	Image     string   `json: "image"`
@@ -19,10 +23,13 @@ type Certification struct {
 	Price     int      `json: "price`
 	MinMonths int      `json: "minMonths"`
 	MaxMonths int      `json: "maxMonths"`
+	Description string `json: "description`
 }
 
 func (cert Certification) MarshalJSON() ([]byte, error) {
+	fmt.Println(cert._id)
 	return json.Marshal(map[string]interface{}{
+		"_id":		 cert._id,
 		"id":        cert.Id,
 		"link":      cert.Link,
 		"image":     cert.Image,
@@ -33,6 +40,7 @@ func (cert Certification) MarshalJSON() ([]byte, error) {
 		"minMonths": cert.MinMonths,
 		"maxMonths": cert.MaxMonths,
 		"price":     cert.Price,
+		"description": cert.Description,
 	})
 }
 
@@ -41,7 +49,7 @@ func (cert *Certification) Create() {
 }
 
 func (cert *Certification) AddCourse(course Course) bool {
-	if course.Id != 0 && course.Name != "" {
+	if course.Name != "" {
 		cert.Courses = append(cert.Courses, course)
 		cert.Updated = time.Now().String()
 		return true

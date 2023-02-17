@@ -30,7 +30,8 @@ function Certifications({certifications}:ICertificationsProps) {
             >
               <Card.Section>
                 <Image
-                  height={160}
+                  height={'180px'}
+                  width={'180px'}
                   radius="md"
                   src={`${serverURL}/${cert.image}`}
                   alt={cert.name}

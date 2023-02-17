@@ -19,18 +19,52 @@ import {
 
 import { Formik } from 'formik';
 import UseCreateCertificationLogic  from './create-certification.logic';
+import UseGetFromCredlyLogic from './get-from-credly.logic';
 
 function CreateCertification(props?:any) {
 
-  const {validate, initialValues, onSubmit} = UseCreateCertificationLogic(props);
+  const createCertification = UseCreateCertificationLogic(props);
+  const getFromCredly = UseGetFromCredlyLogic(props);
  
   return (
     <div id="create-certification">
-     <h1>Create Certification</h1>
+      <h1>
+        Get from Credly
+      </h1>
      <Formik
-       initialValues={initialValues}
-       validate={validate}
-       onSubmit={onSubmit}
+       initialValues={getFromCredly.initialValues}
+       validate={getFromCredly.validate}
+       onSubmit={getFromCredly.onSubmit}
+     >
+       {({
+         values,
+         errors,
+         touched,
+         handleChange,
+         handleBlur,
+         handleSubmit,
+         isSubmitting,
+       }) => (
+         <form onSubmit={handleSubmit}>
+           <>
+           <TextInput
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.url}
+             label="Credly url" name="url" description="URL of the certification on credly" />
+            {errors.url && touched.url && errors.url}
+           <button type="submit" disabled={isSubmitting}>
+             Submit
+           </button>
+           </>
+         </form>
+       )}
+     </Formik>
+     <h1>Create New Certification</h1>
+     <Formik
+       initialValues={createCertification.initialValues}
+       validate={createCertification.validate}
+       onSubmit={createCertification.onSubmit}
      >
        {({
          values,

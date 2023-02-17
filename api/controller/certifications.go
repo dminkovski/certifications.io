@@ -107,9 +107,34 @@ func PostCreateCertification(w http.ResponseWriter, req *http.Request) {
 
 }
 
+func AddCourse(w http.ResponseWriter, req *http.Request) {
+	if req.Method == "POST" {
+		var c model.CourseDTO
+		err := DecodeJsonBody(w, req, &c)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		course := c.Course
+		certId := c.CertificationId
+		err = database.SaveCourse(course, certId)
+		if err != nil {
+			msg := fmt.Sprintf("Adding course to %d not possible.", certId)
+			http.Error(w, msg, http.StatusInternalServerError)
+		}
+		response, err := json.Marshal(c)
+		if err != nil {
+			http.Error(w, "JSON representation of the object was not possible.", http.StatusInternalServerError)
+			return
+		}
+		utils.PrepareResponse(w, response)
+	}
+}
+
 func init() {
 	tpl = template.Must(template.ParseGlob("templates/**.html"))
 	http.HandleFunc("/", Index)
 	http.HandleFunc("/api/certification", GetAndPostCertificationById)
+	http.HandleFunc("/api/course", AddCourse)
 	http.HandleFunc("/api/certifications", GetCertifications)
 }

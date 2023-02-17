@@ -17,9 +17,13 @@ type DB struct {
 const uri = "mongodb://admin:password@localhost:27017/?maxPoolSize=20&w=majority"
 
 func init() {
-	fmt.Println("Initializing Database with Data from local JSON File")
-	count := LoadCertifications()
-	fmt.Println("Initialized DB with Size: ", count)
+	certs := GetCertifications()
+	if len(certs) <= 0 {
+		fmt.Println("Initializing Database with Data from local JSON File")
+		count := LoadCertifications()
+		fmt.Println("Initialized DB with Size: ", count)
+	}
+	
 }
 
 

@@ -2,31 +2,20 @@ import axios from "axios";
 import { serverURL } from "src/config/constants";
 import { ICertification } from "src/model/interfaces";
 
-export interface IUseCreateCertificationLogic{
+export interface IUseGetFromCredlyLogic{
     validate:(values:any)=>any;
     initialValues: any;
     onSubmit: (values:any, {setSubmitting}:any)=>void
 }   
 
-function UseCreateCertificationLogic(props:any):IUseCreateCertificationLogic{
-    const initialValues:ICertification = { id: -1 ,name: '', notes: '',
-    image: '',
-    skills: [],
-    link: '',
-    minMonths:0,
-    maxMonths:1,
-    shortName: '',
-    updated:'',
-    created:'',
-    price: 0,
-    description:'',
-    courses:  [] }
-    const url = `${serverURL}/api/certification`;
+function UseGetFromCredlyLogic(props:any):IUseGetFromCredlyLogic{
+    const initialValues = { url:'' }
+    const api_url = `${serverURL}/api/credly`;
     
     function validate(values:any):any{
         const errors:any = {};
-        if (!values.name) {
-            errors.name = 'Required';
+        if (!values.url) {
+            errors.url = 'Required';
         } 
         return errors;
     }
@@ -35,7 +24,7 @@ function UseCreateCertificationLogic(props:any):IUseCreateCertificationLogic{
 
         setSubmitting(true)
         const data = JSON.stringify(values)
-        const response = await axios.post(url, data, {
+        const response = await axios.post(api_url, data, {
            headers:{ "Content-Type":"application/json"},
         });
         console.log(response)
@@ -50,4 +39,4 @@ function UseCreateCertificationLogic(props:any):IUseCreateCertificationLogic{
     }
 
 }
-export default UseCreateCertificationLogic;
+export default UseGetFromCredlyLogic;

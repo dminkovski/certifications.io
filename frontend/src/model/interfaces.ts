@@ -14,6 +14,7 @@ export interface ICertification {
     id:number;
     name: string;
     image: string;
+    description: string;
     skills: string[];
     link: string;
     courses:  ICourse[];
